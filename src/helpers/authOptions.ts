@@ -7,5 +7,8 @@ export const authOptions = {
     clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
   })
   ],
-  secret : process.env.NEXT_AUTH_SECRET ,
+  secret : process.env.AUTH_SECRET ,
+  pages : {
+    signIn : "/login",
+  }
 }
