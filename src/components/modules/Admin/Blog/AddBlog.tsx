@@ -1,117 +1,144 @@
 "use client";
 
+import { useRef, useState, FormEvent } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import JoditEditor from "jodit-react";
 import { addblog } from "@/actions/blog";
-import { useState, FormEvent } from "react";
-import { toast } from "react-toastify";
 
 export interface IBlog {
-    _id?: string;
-    title: string;
-    description: string;
-    socialLink?: string;
-    photo: string;
+  _id?: string;
+  title: string;
+  description: string;
+  socialLink?: string;
+  photo: string; 
 }
 
 export default function AddBlogForm() {
-    const [blogData, setBlogData] = useState<IBlog>({
-        title: "",
-        description: "",
-        socialLink: "",
-        photo: "",
-    });
+  const editor = useRef(null);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setBlogData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
+  const [formData, setFormData] = useState<IBlog>({
+    title: "",
+    description: "",
+    socialLink: "",
+    photo: "",
+  });
 
-    const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        try {
-            const res = await addblog(blogData)
-            if(res.success){
-                toast.success("Blog Added Successfully")
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error("Failed To Add Blog")
-        }
-    };
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-    return (
-        <div className="pt-16">
-            <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md ">
-                <h1 className="text-2xl font-bold mb-6">Add New Blog</h1>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <div>
-                        <label htmlFor="title" className="block font-medium mb-1">
-                            Title
-                        </label>
-                        <input
-                            type="text"
-                            id="title"
-                            name="title"
-                            value={blogData.title}
-                            onChange={handleChange}
-                            className="w-full border border-gray-300 rounded-md p-2"
-                            required
-                        />
-                    </div>
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
 
-                    <div>
-                        <label htmlFor="description" className="block font-medium mb-1">
-                            Description
-                        </label>
-                        <textarea
-                            id="description"
-                            name="description"
-                            value={blogData.description}
-                            onChange={handleChange}
-                            className="w-full border border-gray-300 rounded-md p-2 h-32"
-                            required
-                        />
-                    </div>
+    if (!formData.title || !formData.description || !formData.photo) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
 
-                    <div>
-                        <label htmlFor="socialLink" className="block font-medium mb-1">
-                            Social Link (optional)
-                        </label>
-                        <input
-                            type="text"
-                            id="socialLink"
-                            name="socialLink"
-                            value={blogData.socialLink}
-                            onChange={handleChange}
-                            className="w-full border border-gray-300 rounded-md p-2"
-                        />
-                    </div>
+    try {
+      const res = await addblog(formData); 
+      if (res.success) {
+        toast.success("Blog Added Successfully");
+        setFormData({
+          title: "",
+          description: "",
+          socialLink: "",
+          photo: "",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed To Add Blog");
+    }
+  };
 
-                    <div>
-                        <label htmlFor="photo" className="block font-medium mb-1">
-                            Photo URL (Use Imgbd)
-                        </label>
-                        <input
-                            type="text"
-                            id="photo"
-                            name="photo"
-                            value={blogData.photo}
-                            onChange={handleChange}
-                            className="w-full border border-gray-300 rounded-md p-2"
-                            required
-                        />
-                    </div>
+  return (
+    <div className="pt-16">
+      <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-2xl border border-main">
+        <h1 className="text-2xl font-bold mb-6 text-center uppercase">
+          Add New Blog
+        </h1>
 
-                    <button
-                        type="submit"
-                        className="bg-main text-white font-semibold py-2 px-4 rounded-md hover:bg-main/80 transition-colors"
-                    >
-                        Submit Blog
-                    </button>
-                </form>
-            </div>
-        </div>
-    );
+        <form onSubmit={handleSubmit}>
+          {/* Title & Social Link */}
+          <div className="flex flex-col gap-4 my-3">
+            <input
+              type="text"
+              placeholder="Title"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              className="w-full py-2 border border-main px-3 rounded text-main"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Social Link (Optional)"
+              name="socialLink"
+              value={formData.socialLink}
+              onChange={handleChange}
+              className="w-full py-2 border border-main px-3 rounded text-main"
+            />
+          </div>
+
+          {/* Description (Rich Text Editor) */}
+          <div className="my-3 bg-white rounded-3xl">
+            <JoditEditor
+              ref={editor}
+              value={formData.description}
+              config={{
+                readonly: false,
+                toolbarAdaptive: false,
+                buttons: [
+                  "bold",
+                  "italic",
+                  "ul",
+                  "ol",
+                  "link",
+                  "brush",
+                  "hr",
+                  "align",
+                  "preview",
+                ],
+              }}
+              onBlur={(newContent) =>
+                setFormData((prev) => ({ ...prev, description: newContent }))
+              }
+            />
+          </div>
+
+          <div className="my-3">
+            <input
+              type="text"
+              placeholder="Photo URL (Use Imgbd)"
+              name="photo"
+              value={formData.photo}
+              onChange={handleChange}
+              className="w-full py-2 border border-main px-3 rounded text-main"
+              required
+            />
+          </div>
+
+          {/* Submit Button */}
+          <div className="flex justify-center mt-4">
+            <button
+              type="submit"
+              className="  px-6 uppercase bg-main w-full text-xl text-white py-2.5 rounded hover:bg-main/60"
+            >
+              Add Blog Post
+            </button>
+          </div>
+        </form>
+
+        <ToastContainer />
+      </div>
+    </div>
+  );
 }
