@@ -59,8 +59,8 @@ export default function Navbar() {
                         </button>
                     ) : (
                         <Link
-                            href="/login"
-                            className="px-4 py-2 bg-main text-white rounded-lg hover:bg-blue-700 transition"
+                            href="/login/admin2025"
+                            className="px-4 py-2 bg-main text-white rounded-lg hover:bg-main/75 transition"
                         >
                             Login
                         </Link>
