@@ -101,6 +101,6 @@ export const authOptions : NextAuthOptions= {
   },
   secret: process.env.AUTH_SECRET,
   pages: {
-    signIn: "/login",
+    signIn: "/login/admin2025",
   }
 }

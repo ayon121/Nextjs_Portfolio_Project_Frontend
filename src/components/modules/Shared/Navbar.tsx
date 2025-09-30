@@ -10,8 +10,8 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
 
-    // Dummy auth state for now
-    const isAuthenticated = false
+    // // Dummy auth state for now
+    // const isAuthenticated = false
 
     const session = useSession()
     
@@ -95,7 +95,7 @@ export default function Navbar() {
                         ))}
 
                         {/* Auth Buttons */}
-                        {isAuthenticated ? (
+                        {session.status === "authenticated" ? (
                             <button
                                 onClick={() => setIsOpen(false)}
                                 className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
