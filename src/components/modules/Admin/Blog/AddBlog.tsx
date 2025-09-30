@@ -1,6 +1,8 @@
 "use client";
 
+import { addblog } from "@/actions/blog";
 import { useState, FormEvent } from "react";
+import { toast } from "react-toastify";
 
 export interface IBlog {
     _id?: string;
@@ -26,9 +28,17 @@ export default function AddBlogForm() {
         }));
     };
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log("Submitted Blog Data:", blogData);
+        try {
+            const res = await addblog(blogData)
+            if(res.success){
+                toast.success("Blog Added Successfully")
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("Failed To Add Blog")
+        }
     };
 
     return (
