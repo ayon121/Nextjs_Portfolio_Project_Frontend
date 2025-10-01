@@ -14,7 +14,7 @@ export default function Navbar() {
     // const isAuthenticated = false
 
     const session = useSession()
-    
+
 
 
 
@@ -22,7 +22,7 @@ export default function Navbar() {
         { href: "/", label: "Home" },
         { href: "/about", label: "About" },
         { href: "/projects", label: "Projects" },
-        { href: "/blogs", label: "Blogs" },
+        { href: "/allblogs", label: "Blogs" },
         { href: "/resume-builder", label: "Resume Builder" },
         { href: "/dashboard", label: "Dashboard" },
     ];
@@ -42,8 +42,8 @@ export default function Navbar() {
                             key={link.href}
                             href={link.href}
                             className={`font-medium transition ${pathname === link.href
-                                    ? "text-main"
-                                    : "text-gray-700 hover:text-main/80"
+                                ? "text-main"
+                                : "text-gray-700 hover:text-main/80"
                                 }`}
                         >
                             {link.label}
@@ -86,8 +86,8 @@ export default function Navbar() {
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
                                 className={`font-medium transition ${pathname === link.href
-                                        ? "text-main"
-                                        : "text-gray-700 hover:text-main/80"
+                                    ? "text-main"
+                                    : "text-gray-700 hover:text-main/80"
                                     }`}
                             >
                                 {link.label}
@@ -97,16 +97,14 @@ export default function Navbar() {
                         {/* Auth Buttons */}
                         {session.status === "authenticated" ? (
                             <button
-                                onClick={() => setIsOpen(false)}
-                                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-                            >
+                                onClick={() => signOut()}
+                                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
                                 Logout
                             </button>
                         ) : (
                             <Link
-                                href="/login"
-                                onClick={() => setIsOpen(false)}
-                                className="px-4 py-2 bg-main text-white rounded-lg hover:bg-blue-700 transition text-center"
+                                href="/login/admin2025"
+                                className="px-4 py-2 bg-main text-white rounded-lg hover:bg-main/75 transition"
                             >
                                 Login
                             </Link>
