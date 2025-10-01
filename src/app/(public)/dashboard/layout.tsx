@@ -25,7 +25,7 @@ export default function AdminDashboardLayout({ children }: AdminDashboardLayoutP
 
     const menuItems: MenuItem[] = [
         { label: "Dashboard", href: "/dashboard/", icon: <LuLayoutDashboard /> },
-        { label: "All Blogs", href: "/dashboard/blogs", icon: <MdPostAdd /> },
+        { label: "All Blogs", href: "/dashboard/allblogs", icon: <MdPostAdd /> },
         { label: "Messages", href: "/dashboard/contacts", icon: <MdLocalPostOffice /> },
         { label: "Add Blog", href: "/dashboard/addblog", icon: <MdAddToPhotos /> },
         { label: "Home", href: "/", icon: <FaHome /> },
