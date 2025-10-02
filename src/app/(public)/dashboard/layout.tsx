@@ -5,7 +5,7 @@ import Link from "next/link";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { MdAddToPhotos, MdLocalPostOffice, MdPostAdd } from "react-icons/md";
 import { FaHome } from "react-icons/fa";
-import { IoLogOut } from "react-icons/io5";
+import { IoBagAddSharp, IoLogOut } from "react-icons/io5";
 import { signOut, useSession } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
 
@@ -26,7 +26,8 @@ export default function AdminDashboardLayout({ children }: AdminDashboardLayoutP
     const menuItems: MenuItem[] = [
         { label: "Dashboard", href: "/dashboard/", icon: <LuLayoutDashboard /> },
         { label: "All Blogs", href: "/dashboard/allblogs", icon: <MdPostAdd /> },
-        { label: "Messages", href: "/dashboard/contacts", icon: <MdLocalPostOffice /> },
+        { label: "All Projects", href: "/dashboard/allproject", icon: <MdPostAdd /> },
+        { label: "Add Project", href: "/dashboard/addproject", icon: <IoBagAddSharp /> },
         { label: "Add Blog", href: "/dashboard/addblog", icon: <MdAddToPhotos /> },
         { label: "Home", href: "/", icon: <FaHome /> },
     ];

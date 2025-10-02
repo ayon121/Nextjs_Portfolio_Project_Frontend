@@ -16,12 +16,10 @@ export default function Navbar() {
     const session = useSession()
 
 
-
-
     const navLinks = [
         { href: "/", label: "Home" },
         { href: "/about", label: "About" },
-        { href: "/projects", label: "Projects" },
+        { href: "/allprojects", label: "Projects" },
         { href: "/allblogs", label: "Blogs" },
         { href: "/resume-builder", label: "Resume Builder" },
         { href: "/dashboard", label: "Dashboard" },
