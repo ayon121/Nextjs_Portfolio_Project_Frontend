@@ -33,7 +33,6 @@ export default async function AboutWebsitePage() {
       <section className="py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8 items-start">
-            {/* Left column - avatar + contact */}
             <div className="md:col-span-1">
               <div
                 className="sticky top-24 bg-white/70 backdrop-blur-md border border-gray-200 rounded-2xl p-6 shadow-lg"
@@ -85,8 +84,6 @@ export default async function AboutWebsitePage() {
                 </div>
               </div>
             </div>
-
-            {/* Right column — main content */}
             <div className="md:col-span-2">
               <div className="rounded-2xl p-8 shadow-lg border border-gray-200">
                 <h1 className="text-3xl font-extrabold text-gray-900 mb-4">Hello — I&apos;m {about.name}</h1>
@@ -97,7 +94,6 @@ export default async function AboutWebsitePage() {
                   <div>
                     <h4 className="text-lg font-semibold mb-2">Skills & Focus</h4>
                     <ul className="flex flex-wrap gap-2">
-                      {/* Example tags (you can map real tags if you have them later) */}
                       <li className="px-3 py-1 bg-gray-100 rounded-full text-sm">Next.js</li>
                       <li className="px-3 py-1 bg-gray-100 rounded-full text-sm">TypeScript</li>
                       <li className="px-3 py-1 bg-gray-100 rounded-full text-sm">Tailwind</li>
@@ -124,7 +120,7 @@ export default async function AboutWebsitePage() {
                   </div>
                 </div>
 
-                {/* CTA */}
+  
                 <div className="mt-8 flex flex-wrap gap-4">
                   <a href={`mailto:${about.email}`} className="px-6 py-3 bg-main text-white rounded-lg shadow hover:opacity-95 transition">Contact Me</a>
                   {about.socialLinks?.portfolio && (
