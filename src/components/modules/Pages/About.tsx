@@ -1,113 +1,151 @@
-"use client";
-
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-
-const images = ["/about4.jpg" , "/about5.jpg" , "/about6.jpg"];
+import AboutSlider from "./AboutSlider";
 
 
-export default function AboutWebsitePage() {
 
-  const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 2000); // change every 2s
+export default async function AboutWebsitePage() {
+  let about = null;
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/about`, {
+      cache: "force-cache",
+    });
+    const json = await res.json();
+    about = json.success ? json.data : null;
+  } catch (error) {
+    console.error("Error fetching About Me:", error);
+  }
 
-    return () => clearInterval(interval); // cleanup
-  }, []);
+  if (!about) {
+    return (
+      <div className="max-w-3xl mx-auto text-center py-20">
+        <h2 className="text-2xl font-semibold text-red-500">
+          About Me information not found.
+        </h2>
+      </div>
+    );
+  }
 
 
   return (
-    <main className="min-h-screen text-gray-800 pt-11">
-      {/* Hero Section */}
-      <section className="py-20 px-6 text-center">
-        <div className="relative max-w-6xl w-full h-[500px] mx-auto rounded-2xl overflow-hidden shadow-2xl">
-          {images.map((src, index) => (
-            <Image
-              key={index}
-              src={src}
-              alt="Ayon Saha"
-              fill
-              className={`object-cover rounded-2xl transition-opacity duration-700 ${index === currentIndex ? "opacity-100" : "opacity-0"
-                }`}
-            />
-          ))}
+    <main className="min-h-screen bg-transparent  pt-5">
+      <AboutSlider />
+
+      <section className="py-20 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 items-start">
+            {/* Left column - avatar + contact */}
+            <div className="md:col-span-1">
+              <div
+                className="sticky top-24 bg-white/70 backdrop-blur-md border border-gray-200 rounded-2xl p-6 shadow-lg"
+                style={{ minHeight: 280 }}
+              >
+                
+
+                <h3 className="text-center text-xl font-semibold text-gray-900 mb-1">
+                  {about.name}
+                </h3>
+                <p className="text-center text-sm text-gray-600 mb-4">{about.location || "Location not set"}</p>
+
+                <div className="space-y-3 text-sm">
+                  <div>
+                    <p className="text-xs text-gray-500">Email</p>
+                    <p className="text-gray-800 truncate">{about.email}</p>
+                  </div>
+
+                  {about.lasteducation && (
+                    <div>
+                      <p className="text-xs text-gray-500">Education</p>
+                      <p className="text-gray-800">{about.lasteducation}</p>
+                    </div>
+                  )}
+
+                  <div>
+                    <p className="text-xs text-gray-500">Availability</p>
+                    <p className="text-green-600 font-medium">Software Developer at Ufficio Furniture</p>
+                  </div>
+                </div>
+
+                {/* Socials */}
+                <div className="mt-6 flex flex-wrap justify-center gap-3">
+                  {about.socialLinks &&
+                    Object.entries(about.socialLinks).map(([k, v], i) =>
+                      v ? (
+                        <a
+                          key={k}
+                          href={v as string}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 py-2 bg-main text-white rounded-md text-sm hover:opacity-95 transition"
+                          style={{ animation: `fadeUp .5s ease ${i * 75}ms both` }}
+                        >
+                          {k.charAt(0).toUpperCase() + k.slice(1)}
+                        </a>
+                      ) : null
+                    )}
+                </div>
+              </div>
+            </div>
+
+            {/* Right column — main content */}
+            <div className="md:col-span-2">
+              <div className="rounded-2xl p-8 shadow-lg border border-gray-200">
+                <h1 className="text-3xl font-extrabold text-gray-900 mb-4">Hello — I&apos;m {about.name}</h1>
+
+                <p className="text-gray-700 leading-relaxed mb-6 prose" dangerouslySetInnerHTML={{ __html: about.bio || "" }} />
+
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="text-lg font-semibold mb-2">Skills & Focus</h4>
+                    <ul className="flex flex-wrap gap-2">
+                      {/* Example tags (you can map real tags if you have them later) */}
+                      <li className="px-3 py-1 bg-gray-100 rounded-full text-sm">Next.js</li>
+                      <li className="px-3 py-1 bg-gray-100 rounded-full text-sm">TypeScript</li>
+                      <li className="px-3 py-1 bg-gray-100 rounded-full text-sm">Tailwind</li>
+                      <li className="px-3 py-1 bg-gray-100 rounded-full text-sm">React</li>
+                      <li className="px-3 py-1 bg-gray-100 rounded-full text-sm">Node.js</li>
+                      <li className="px-3 py-1 bg-gray-100 rounded-full text-sm">Mongodb</li>
+                      <li className="px-3 py-1 bg-gray-100 rounded-full text-sm">Prisma</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
+                    <div className="flex flex-col gap-2">
+                      {about.socialLinks?.portfolio && (
+                        <a href={about.socialLinks.portfolio} className="text-main hover:underline" target="_blank" rel="noreferrer">Portfolio</a>
+                      )}
+                      {about.socialLinks?.github && (
+                        <a href={about.socialLinks.github} className="text-main hover:underline" target="_blank" rel="noreferrer">GitHub</a>
+                      )}
+                      {about.socialLinks?.linkedin && (
+                        <a href={about.socialLinks.linkedin} className="text-main hover:underline" target="_blank" rel="noreferrer">LinkedIn</a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <a href={`mailto:${about.email}`} className="px-6 py-3 bg-main text-white rounded-lg shadow hover:opacity-95 transition">Contact Me</a>
+                  {about.socialLinks?.portfolio && (
+                    <a href={about.socialLinks.portfolio} target="_blank" rel="noreferrer" className="px-6 py-3 border border-main text-main rounded-lg hover:bg-main/5 transition">View Portfolio</a>
+                  )}
+                </div>
+              </div>
+
+          
+            </div>
+          </div>
         </div>
       </section>
 
-
-      {/* Features Section */}
-      <section className="max-w-6xl mx-auto px-6 py-16">
-        <h2 className="text-3xl font-semibold text-center mb-12">What You Can Do Here</h2>
-        <div className="grid md:grid-cols-2 gap-10">
-          {/* Portfolio */}
-          <div className=" p-6 rounded-xl shadow hover:shadow-md transition">
-            <h3 className="text-xl font-semibold text-main mb-2">📂 Create Your Portfolio</h3>
-            <p className="text-gray-600">
-              Showcase your skills, achievements, and experiences in a professional portfolio.
-              Your personal space to tell the world who you are and what you do.
-            </p>
-          </div>
-
-          {/* Blogs */}
-          <div className=" p-6 rounded-xl shadow hover:shadow-md transition">
-            <h3 className="text-xl font-semibold text-main mb-2">✍️ Write & Share Blogs</h3>
-            <p className="text-gray-600">
-              Share your thoughts, tutorials, and experiences through blogs. Readers can explore and
-              engage with your content, helping you grow your online presence.
-            </p>
-          </div>
-
-          {/* Projects */}
-          <div className=" p-6 rounded-xl shadow hover:shadow-md transition">
-            <h3 className="text-xl font-semibold text-main mb-2">🚀 Showcase Projects</h3>
-            <p className="text-gray-600">
-              Display your projects with details, features, and live links. A perfect way to build
-              credibility and let others see your real-world work.
-            </p>
-          </div>
-
-          {/* Resume Builder */}
-          <div className=" p-6 rounded-xl shadow hover:shadow-md transition">
-            <h3 className="text-xl font-semibold text-main mb-2">📄 Build Your Resume</h3>
-            <p className="text-gray-600">
-              Use our interactive Resume Builder to create a professional resume in minutes. Edit
-              your details and download your resume as a PDF instantly.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Mission Section */}
-      <section className=" py-16 px-6 border-t">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-semibold mb-6">Our Mission</h2>
-          <p className="text-gray-600 text-lg leading-relaxed">
-            This platform is designed to empower individuals, developers, and professionals to build
-            their online presence with ease. Whether it’s creating a portfolio, writing blogs,
-            showcasing projects, or building resumes, everything is simplified into one seamless
-            experience.
-          </p>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="bg-gradient-to-r from-main to-main/30 text-white text-center py-16 px-6">
-        <h2 className="text-3xl font-bold mb-4">Start Building Your Digital Identity</h2>
-        <p className="max-w-2xl mx-auto mb-6">
-          Sign up today and create your portfolio, publish blogs, showcase projects, and build your
-          professional resume — all from one dashboard.
-        </p>
-        <Link
-          href="/register"
-          className="inline-block px-8 py-3 bg-white text-main font-semibold rounded-lg shadow hover:bg-gray-100 transition"
-        >
-          Get Started
-        </Link>
-      </section>
+      <style>{`
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up { animation: fadeUp .6s ease both; }
+      `}</style>
     </main>
   );
 }
