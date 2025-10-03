@@ -29,6 +29,7 @@ export default function AdminDashboardLayout({ children }: AdminDashboardLayoutP
         { label: "All Projects", href: "/dashboard/allproject", icon: <MdPostAdd /> },
         { label: "Add Project", href: "/dashboard/addproject", icon: <IoBagAddSharp /> },
         { label: "Add Blog", href: "/dashboard/addblog", icon: <MdAddToPhotos /> },
+        { label: "Change About", href: "/dashboard/addabout", icon: <MdAddToPhotos /> },
         { label: "Home", href: "/", icon: <FaHome /> },
     ];
 

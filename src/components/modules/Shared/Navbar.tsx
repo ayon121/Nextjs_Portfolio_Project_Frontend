@@ -18,10 +18,9 @@ export default function Navbar() {
 
     const navLinks = [
         { href: "/", label: "Home" },
-        { href: "/about", label: "About" },
+        { href: "/about", label: "About Me" },
         { href: "/allprojects", label: "Projects" },
         { href: "/allblogs", label: "Blogs" },
-        { href: "/resume-builder", label: "Resume Builder" },
         { href: "/dashboard", label: "Dashboard" },
     ];
 
@@ -30,7 +29,7 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                 {/* Logo */}
                 <Link href="/" className="text-xl font-bold text-main">
-                    MyPortfolio
+                   AYON SAHA
                 </Link>
 
                 {/* Desktop Nav */}
