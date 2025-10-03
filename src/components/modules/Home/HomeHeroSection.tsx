@@ -6,7 +6,7 @@ const HomeHeroSection = () => {
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12">
                 {/* Profile Image */}
                 <div>
-                    <div className="relative w-52 h-52 md:w-64 md:h-64 rounded-full overflow-hidden shadow-xl border-4 border-white">
+                    <div className="relative w-52 h-52 md:w-64 md:h-64 rounded-full overflow-hidden shadow-2xl border-4 border-white">
                         <Image
                             width={300}
                             height={300}

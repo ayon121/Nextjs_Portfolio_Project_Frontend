@@ -1,3 +1,4 @@
+import ExperienceSection from "@/components/modules/Home/ExperienceSection";
 import HomeHeroSection from "@/components/modules/Home/HomeHeroSection";
 import Navbar from "@/components/modules/Shared/Navbar";
 
@@ -18,6 +19,7 @@ export default async function Home() {
 
         <Navbar></Navbar>
         <HomeHeroSection></HomeHeroSection>
+        <ExperienceSection></ExperienceSection>
       </div>
     </div>
   );
