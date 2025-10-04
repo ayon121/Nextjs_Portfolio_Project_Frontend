@@ -1,17 +1,23 @@
 "use client";
 
 import { useRef, useState, FormEvent } from "react";
+import dynamic from "next/dynamic";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import JoditEditor from "jodit-react";
 import { addblog } from "@/actions/blog";
+
+
+const JoditEditor = dynamic(() => import("jodit-react"), {
+  ssr: false,
+  loading: () => <p>Loading editor...</p>,
+});
 
 export interface IBlog {
   _id?: string;
   title: string;
   description: string;
   socialLink?: string;
-  photo: string; 
+  photo: string;
 }
 
 export default function AddBlogForm() {
@@ -43,7 +49,7 @@ export default function AddBlogForm() {
     }
 
     try {
-      const res = await addblog(formData); 
+      const res = await addblog(formData);
       if (res.success) {
         toast.success("Blog Added Successfully");
         setFormData({
@@ -67,7 +73,6 @@ export default function AddBlogForm() {
         </h1>
 
         <form onSubmit={handleSubmit}>
-          {/* Title & Social Link */}
           <div className="flex flex-col gap-4 my-3">
             <input
               type="text"
@@ -88,7 +93,6 @@ export default function AddBlogForm() {
             />
           </div>
 
-          {/* Description (Rich Text Editor) */}
           <div className="my-3 bg-white rounded-3xl">
             <JoditEditor
               ref={editor}
@@ -108,7 +112,7 @@ export default function AddBlogForm() {
                   "preview",
                 ],
               }}
-              onBlur={(newContent) =>
+              onBlur={(newContent: string) =>
                 setFormData((prev) => ({ ...prev, description: newContent }))
               }
             />
@@ -117,7 +121,7 @@ export default function AddBlogForm() {
           <div className="my-3">
             <input
               type="text"
-              placeholder="Photo URL (Use Imgbd)"
+              placeholder="Photo URL (Use Imgbb)"
               name="photo"
               value={formData.photo}
               onChange={handleChange}
@@ -126,11 +130,10 @@ export default function AddBlogForm() {
             />
           </div>
 
-          {/* Submit Button */}
           <div className="flex justify-center mt-4">
             <button
               type="submit"
-              className="  px-6 uppercase bg-main w-full text-xl text-white py-2.5 rounded hover:bg-main/60"
+              className="px-6 uppercase bg-main w-full text-xl text-white py-2.5 rounded hover:bg-main/60"
             >
               Add Blog Post
             </button>

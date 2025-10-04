@@ -5,7 +5,7 @@ const experiences = [
         role: "Software Developer",
         company: "Ufficio Furniture",
         companyLogo: "/ufficio.jpg", 
-        period: "2023 - Present",
+        period: "2024 - Present",
         description:
             "Website & Software Management and Focused on performance, SEO, Marketing  and user experience.",
     },

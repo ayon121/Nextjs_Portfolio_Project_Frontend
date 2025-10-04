@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef, useState, FormEvent } from "react";
+import { useRef, useState, FormEvent, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import JoditEditor from "jodit-react";
-import { addproject } from "@/actions/project";
+import dynamic from "next/dynamic";
 
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false })
 
 export interface IProject {
   _id?: string;
@@ -19,7 +19,6 @@ export interface IProject {
 
 export default function AddProjectForm() {
   const editor = useRef(null);
-
   const [formData, setFormData] = useState<IProject>({
     title: "",
     description: "",
@@ -31,7 +30,26 @@ export default function AddProjectForm() {
 
   const [featureInput, setFeatureInput] = useState("");
 
-  // Handle normal inputs
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/project`, {
+          cache: "no-store",
+        });
+        const data = await res.json();
+        if (data?.success && data?.data) {
+          setFormData(data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching project:", error);
+      }
+    };
+
+    fetchProject();
+  }, []);
+
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -42,9 +60,9 @@ export default function AddProjectForm() {
     }));
   };
 
-  // Add features
+
   const handleAddFeature = () => {
-    if (featureInput.trim() === "") return;
+    if (!featureInput.trim()) return;
     setFormData((prev) => ({
       ...prev,
       features: [...prev.features, featureInput],
@@ -59,7 +77,7 @@ export default function AddProjectForm() {
     }));
   };
 
-  // Submit project
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -69,21 +87,24 @@ export default function AddProjectForm() {
     }
 
     try {
-      const res = await addproject(formData);
-      if (res.success) {
-        toast.success("Project Added Successfully");
-        setFormData({
-          title: "",
-          description: "",
-          features: [],
-          thumbnail: "",
-          liveUrl: "",
-          repoUrl: "",
-        });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/project`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        toast.success("Project updated successfully!");
+      } else {
+        toast.error(result.message || "Failed to update project.");
       }
     } catch (error) {
       console.error(error);
-      toast.error("Failed To Add Project");
+      toast.error("Something went wrong while updating the project.");
     }
   };
 
@@ -91,11 +112,11 @@ export default function AddProjectForm() {
     <div className="pt-16">
       <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-2xl border border-main">
         <h1 className="text-2xl font-bold mb-6 text-center uppercase">
-          Add New Project
+          Update Project
         </h1>
 
         <form onSubmit={handleSubmit}>
-          {/* Title, Live URL & Repo URL */}
+  
           <div className="flex flex-col gap-4 my-3">
             <input
               type="text"
@@ -124,7 +145,7 @@ export default function AddProjectForm() {
             />
           </div>
 
-          {/* Description */}
+  
           <div className="my-3 bg-white rounded-3xl">
             <JoditEditor
               ref={editor}
@@ -150,7 +171,6 @@ export default function AddProjectForm() {
             />
           </div>
 
-          {/* Features */}
           <div className="my-3">
             <div className="flex gap-2">
               <input
@@ -187,7 +207,7 @@ export default function AddProjectForm() {
             </ul>
           </div>
 
-          {/* Thumbnail */}
+
           <div className="my-3">
             <input
               type="text"
@@ -200,13 +220,12 @@ export default function AddProjectForm() {
             />
           </div>
 
-          {/* Submit */}
           <div className="flex justify-center mt-4">
             <button
               type="submit"
               className="px-6 uppercase bg-main w-full text-xl text-white py-2.5 rounded hover:bg-main/60"
             >
-              Add Project
+              Update Project
             </button>
           </div>
         </form>

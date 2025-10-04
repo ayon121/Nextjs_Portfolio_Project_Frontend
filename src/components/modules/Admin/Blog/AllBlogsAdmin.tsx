@@ -3,7 +3,9 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { toast } from "react-toastify";
-import JoditEditor from "jodit-react";
+import dynamic from "next/dynamic";
+
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 interface IBlog {
     _id: string;
