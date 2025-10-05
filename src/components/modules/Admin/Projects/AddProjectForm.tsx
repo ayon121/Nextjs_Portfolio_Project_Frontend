@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, FormEvent, useEffect } from "react";
+import { useRef, useState, FormEvent } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import dynamic from "next/dynamic";
@@ -31,23 +31,6 @@ export default function AddProjectForm() {
   const [featureInput, setFeatureInput] = useState("");
 
 
-  useEffect(() => {
-    const fetchProject = async () => {
-      try {
-        const res = await fetch(`https://backend-rho-plum-42.vercel.app/api/v1/project`, {
-          cache: "no-store",
-        });
-        const data = await res.json();
-        if (data?.success && data?.data) {
-          setFormData(data.data);
-        }
-      } catch (error) {
-        console.error("Error fetching project:", error);
-      }
-    };
-
-    fetchProject();
-  }, []);
 
 
   const handleChange = (
@@ -87,8 +70,8 @@ export default function AddProjectForm() {
     }
 
     try {
-      const res = await fetch(`https://backend-rho-plum-42.vercel.app/api/v1/project`, {
-        method: "PATCH",
+      const res = await fetch(`https://backend-rho-plum-42.vercel.app/api/v1/projects`, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -112,7 +95,7 @@ export default function AddProjectForm() {
     <div className="pt-16">
       <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-2xl border border-main">
         <h1 className="text-2xl font-bold mb-6 text-center uppercase">
-          Update Project
+          Add Project
         </h1>
 
         <form onSubmit={handleSubmit}>
@@ -225,7 +208,7 @@ export default function AddProjectForm() {
               type="submit"
               className="px-6 uppercase bg-main w-full text-xl text-white py-2.5 rounded hover:bg-main/60"
             >
-              Update Project
+              Add Project
             </button>
           </div>
         </form>
