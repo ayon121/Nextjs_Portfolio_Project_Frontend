@@ -3,7 +3,7 @@
 
 
 export const addproject = async (data: any) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/projects`, {
+    const res = await fetch(`https://backend-rho-plum-42.vercel.app/api/v1/projects`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

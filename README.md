@@ -10,7 +10,7 @@ It includes blog and project showcases, an About section, and admin-only dashboa
 <h2>🚀 Live Demo</h2>
 <ul>
   <li><strong>Frontend URL:</strong> <a href="nextjsfrontend-eta.vercel.app" target="_blank">nextjsfrontend-eta.vercel.app</a></li>
-  <li><strong>Backend API:</strong> <a href="https://protfoliobackend-teal.vercel.app" target="_blank">https://protfoliobackend-teal.vercel.app</a></li>
+  <li><strong>Backend API:</strong> <a href="https://backend-rho-plum-42.vercel.app" target="_blank">https://backend-rho-plum-42.vercel.app</a></li>
 </ul>
 
 <hr />

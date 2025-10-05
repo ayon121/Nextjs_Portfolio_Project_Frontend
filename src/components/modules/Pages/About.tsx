@@ -6,9 +6,12 @@ import AboutSlider from "./AboutSlider";
 export default async function AboutWebsitePage() {
   let about = null;
   try {
-    const res = await fetch(`https://protfoliobackend-teal.vercel.app/api/v1/about`, {
+    const res = await fetch(`https://backend-rho-plum-42.vercel.app/api/v1/about`, {
       cache: "force-cache",
     });
+    // const res = await fetch(`https://backend-rho-plum-42.vercel.app/api/v1/about`, {
+    //   next: { revalidate: 30 },
+    // });
     const json = await res.json();
     about = json.success ? json.data : null;
   } catch (error) {

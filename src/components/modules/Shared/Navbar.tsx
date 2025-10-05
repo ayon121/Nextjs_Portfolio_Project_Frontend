@@ -4,14 +4,15 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { signOut } from "next-auth/react";
+import { useAuth } from "@/providers/AuthProviders";
+
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
+    const { user } = useAuth();
 
 
-    // const session = useSession()
 
 
     const navLinks = [
@@ -19,15 +20,13 @@ export default function Navbar() {
         { href: "/about", label: "About Me" },
         { href: "/allprojects", label: "Projects" },
         { href: "/allblogs", label: "Blogs" },
-        { href: "/dashboard", label: "Dashboard" },
     ];
 
     return (
         <nav className="bg-white shadow-md fixed top-0 w-full z-50">
             <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-                {/* Logo */}
                 <Link href="/" className="text-xl font-bold text-main">
-                   AYON SAHA
+                    AYON SAHA
                 </Link>
 
                 {/* Desktop Nav */}
@@ -46,20 +45,21 @@ export default function Navbar() {
                     ))}
 
                     {/* Auth Buttons */}
-                    {/* {session.status === "authenticated" ? (
-                        <button
-                            onClick={() => signOut()}
-                            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
-                            Logout
-                        </button>
-                    ) : (
-                        <Link
-                            href="/login"
-                            className="px-4 py-2 bg-main text-white rounded-lg hover:bg-main/75 transition"
-                        >
-                            Login
-                        </Link>
-                    )} */}
+                    <div>
+                        {user ? (
+                            <Link href={"/dashboard"}>
+                                <button className="border-2 bg-main hover:bg-white text-white hover:text-main rounded-md px-4 py-3 uppercase flex flex-row items-center justify-center   text-xs">
+                                    Dashboard
+                                </button>
+                            </Link>
+                        ) : (
+                            <Link href="/login">
+                                <button className="border-2 bg-main hover:bg-white text-white hover:text-main rounded-md px-4 py-3 uppercase flex flex-row items-center justify-center   text-xs">
+                                    Login
+                                </button>
+                            </Link>
+                        )}
+                    </div>
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -89,21 +89,22 @@ export default function Navbar() {
                             </Link>
                         ))}
 
-                        {/* Auth Buttons */}
-                        {/* {session.status === "authenticated" ? (
-                            <button
-                                onClick={() => signOut()}
-                                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
-                                Logout
-                            </button>
-                        ) : (
-                            <Link
-                                href="/login/admin2025"
-                                className="px-4 py-2 bg-main text-white rounded-lg hover:bg-main/75 transition"
-                            >
-                                Login
-                            </Link>
-                        )} */}
+                        {<div>
+                            {user ? (
+                                <Link href={"/dashboard"}>
+                                    <button className="border-2 bg-main hover:bg-white text-white hover:text-main rounded-md px-4 py-3 uppercase flex flex-row items-center justify-center   text-xs">
+                                        Dashboard
+                                    </button>
+                                </Link>
+                            ) : (
+                                <Link href="/login">
+                                    <button className="border-2 bg-main hover:bg-white text-white hover:text-main rounded-md px-4 py-3 uppercase flex flex-row items-center justify-center   text-xs">
+                                        Login
+                                    </button>
+                                </Link>
+                            )}
+                        </div>}
+
                     </div>
                 </div>
             )}

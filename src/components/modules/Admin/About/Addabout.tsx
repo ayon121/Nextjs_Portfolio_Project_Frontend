@@ -46,7 +46,7 @@ export default function AboutMeForm() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/about`);
+        const res = await fetch(`https://backend-rho-plum-42.vercel.app/api/v1/about`);
         const data = await res.json();
         if (data?.data) {
           setFormData({

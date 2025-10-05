@@ -2,32 +2,36 @@
 
 import { useState, FormEvent } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useAuth } from "@/providers/AuthProviders";
+import { toast, ToastContainer } from "react-toastify";
+import { useRouter } from "next/navigation";
+
+
+
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+  const { login, loading } = useAuth();
+   const router = useRouter();
+
+
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: true,      
-      callbackUrl: "/dashboard"  
-    });
-
-    if (result?.ok) {
-      router.push(callbackUrl);
-    } else {
-      alert("Login failed. Check your email and password.");
+    try {
+      console.log(email ,password);
+      await login(email, password); 
+      toast.success("Login successful!");
+      router.push("/"); 
+    } catch (err) {
+      console.log(err);
+      const errMsg = "Login failed";
+      toast.error(errMsg);
+    
     }
+
   };
 
   return (
@@ -83,10 +87,11 @@ export default function LoginForm() {
             type="submit"
             className="w-full py-2 px-4 rounded-lg bg-main text-white font-semibold hover:bg-main/80 transition"
           >
-            Login
+             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 }

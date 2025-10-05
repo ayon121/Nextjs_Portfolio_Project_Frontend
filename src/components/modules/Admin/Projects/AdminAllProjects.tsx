@@ -28,7 +28,7 @@ export default function AdminAllProjects() {
     const fetchProjects = async () => {
         setLoading(true);
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/projects`);
+            const res = await fetch(`https://backend-rho-plum-42.vercel.app/api/v1/projects`);
             const data = await res.json();
             setProjects(data.data || []);
         } catch (error) {

@@ -12,7 +12,7 @@ interface IBlog {
 }
 
 export default async function AllBlogsPage() {
-    const res = await fetch(`https://protfoliobackend-teal.vercel.app/api/v1/blog`, {
+    const res = await fetch(`https://backend-rho-plum-42.vercel.app/api/v1/blog`, {
         next: { revalidate: 30 },
     });
 

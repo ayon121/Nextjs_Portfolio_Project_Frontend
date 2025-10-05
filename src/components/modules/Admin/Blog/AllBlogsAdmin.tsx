@@ -26,7 +26,7 @@ export default function AdminAllBlogs() {
     const fetchBlogs = async () => {
         setLoading(true);
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog`);
+            const res = await fetch(`https://backend-rho-plum-42.vercel.app/api/v1/blog`);
             const data = await res.json();
             setBlogs(data.data || []);
         } catch (error) {

@@ -34,7 +34,7 @@ export default function AddProjectForm() {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/project`, {
+        const res = await fetch(`https://backend-rho-plum-42.vercel.app/api/v1/project`, {
           cache: "no-store",
         });
         const data = await res.json();
