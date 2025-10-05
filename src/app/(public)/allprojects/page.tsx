@@ -6,7 +6,7 @@ import Link from "next/link";
 
 
 export default async function AllProjectsPage() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/projects`, {
+  const res = await fetch(`https://protfoliobackend-teal.vercel.app/api/v1/projects`, {
     next: { revalidate: 30 }, 
   });
 

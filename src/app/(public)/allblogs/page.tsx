@@ -12,7 +12,7 @@ interface IBlog {
 }
 
 export default async function AllBlogsPage() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog`, {
+    const res = await fetch(`https://protfoliobackend-teal.vercel.app/api/v1/blog`, {
         next: { revalidate: 30 },
     });
 

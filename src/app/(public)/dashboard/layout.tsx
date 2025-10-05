@@ -3,10 +3,10 @@
 import { useState, ReactNode, JSX } from "react";
 import Link from "next/link";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { MdAddToPhotos, MdLocalPostOffice, MdPostAdd } from "react-icons/md";
+import { MdAddToPhotos, MdPostAdd } from "react-icons/md";
 import { FaHome } from "react-icons/fa";
 import { IoBagAddSharp, IoLogOut } from "react-icons/io5";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
 
 interface MenuItem {
@@ -21,7 +21,11 @@ interface AdminDashboardLayoutProps {
 
 export default function AdminDashboardLayout({ children }: AdminDashboardLayoutProps) {
     const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-    const session = useSession();
+    // const session = useSession();
+
+
+
+   
 
     const menuItems: MenuItem[] = [
         { label: "Dashboard", href: "/dashboard/", icon: <LuLayoutDashboard /> },
@@ -96,7 +100,7 @@ export default function AdminDashboardLayout({ children }: AdminDashboardLayoutP
                                 </div>
                             </Link>
                         ))}
-                        {session.status === "authenticated" && (
+                        {/* {session.status === "authenticated" && (
                             <button
                                 onClick={() => signOut()}
                                 className="mt-4 px-4 py-2 bg-red-500 rounded-lg hover:bg-red-600 transition"
@@ -104,7 +108,7 @@ export default function AdminDashboardLayout({ children }: AdminDashboardLayoutP
                                 <IoLogOut className="inline mr-2" />
                                 Logout
                             </button>
-                        )}
+                        )} */}
                     </div>
                 )}
 
@@ -119,7 +123,7 @@ export default function AdminDashboardLayout({ children }: AdminDashboardLayoutP
                             </div>
                         </Link>
                     ))}
-                    {session.status === "authenticated" && (
+                    {/* {session.status === "authenticated" && (
                         <button
                             onClick={() => signOut()}
                             className="mt-4 px-4 py-2 bg-red-500 rounded-lg hover:bg-red-600 transition"
@@ -127,7 +131,7 @@ export default function AdminDashboardLayout({ children }: AdminDashboardLayoutP
                             <IoLogOut className="inline mr-2" />
                             Logout
                         </button>
-                    )}
+                    )} */}
                 </div>
 
                 {/* Main Content */}

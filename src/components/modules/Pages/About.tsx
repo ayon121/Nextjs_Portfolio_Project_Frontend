@@ -6,7 +6,7 @@ import AboutSlider from "./AboutSlider";
 export default async function AboutWebsitePage() {
   let about = null;
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/about`, {
+    const res = await fetch(`https://protfoliobackend-teal.vercel.app/api/v1/about`, {
       cache: "force-cache",
     });
     const json = await res.json();

@@ -5,7 +5,7 @@ import Navbar from "@/components/modules/Shared/Navbar";
 
 async function getProject(projectid: string) {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/projects/${projectid}`, {
+        const res = await fetch(`https://protfoliobackend-teal.vercel.app/api/v1/projects/${projectid}`, {
             next: { revalidate: 30 }, // ISR
         });
 

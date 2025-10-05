@@ -1,4 +1,4 @@
-import GoogleProvider from "next-auth/providers/google";
+
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextAuthOptions } from "next-auth";
 
@@ -20,12 +20,8 @@ declare module "next-auth" {
 }
 
 
-export const authOptions : NextAuthOptions= {
+export const authOptions: NextAuthOptions = {
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
-    }),
     CredentialsProvider({
       name: "Credentials",
 
@@ -65,35 +61,35 @@ export const authOptions : NextAuthOptions= {
           const user = await res.json()
           if (user) {
             return {
-              id : user?.data?.user?._id,
-              email : user?.data?.user?.email,
-              name : user?.data?.user?.name,
+              id: user?.data?.user?._id,
+              email: user?.data?.user?.email,
+              name: user?.data?.user?.name,
             }
           } else {
             return null
           }
 
-          
+
         } catch (error) {
           console.log(error);
           return null
         }
 
-        
+
 
 
       }
     })
   ],
-  callbacks : {
-    async jwt({token , user}){
-      if(user){
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
         token.id = user?.id
       }
       return token
     },
-    async session ({session , token}) {
-      if(session?.user){
+    async session({ session, token }) {
+      if (session?.user) {
         session.user.id = token?.id as string
       }
       return session
@@ -101,6 +97,6 @@ export const authOptions : NextAuthOptions= {
   },
   secret: process.env.AUTH_SECRET,
   pages: {
-    signIn: "/login/admin2025",
-  }
+    signIn: "/login",
+  },
 }

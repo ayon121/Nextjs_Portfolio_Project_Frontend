@@ -4,16 +4,14 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
 
-    // // Dummy auth state for now
-    // const isAuthenticated = false
 
-    const session = useSession()
+    // const session = useSession()
 
 
     const navLinks = [
@@ -48,7 +46,7 @@ export default function Navbar() {
                     ))}
 
                     {/* Auth Buttons */}
-                    {session.status === "authenticated" ? (
+                    {/* {session.status === "authenticated" ? (
                         <button
                             onClick={() => signOut()}
                             className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
@@ -56,12 +54,12 @@ export default function Navbar() {
                         </button>
                     ) : (
                         <Link
-                            href="/login/admin2025"
+                            href="/login"
                             className="px-4 py-2 bg-main text-white rounded-lg hover:bg-main/75 transition"
                         >
                             Login
                         </Link>
-                    )}
+                    )} */}
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -92,7 +90,7 @@ export default function Navbar() {
                         ))}
 
                         {/* Auth Buttons */}
-                        {session.status === "authenticated" ? (
+                        {/* {session.status === "authenticated" ? (
                             <button
                                 onClick={() => signOut()}
                                 className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
@@ -105,7 +103,7 @@ export default function Navbar() {
                             >
                                 Login
                             </Link>
-                        )}
+                        )} */}
                     </div>
                 </div>
             )}

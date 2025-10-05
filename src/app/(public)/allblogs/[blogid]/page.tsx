@@ -5,7 +5,7 @@ import Image from "next/image";
 
 async function getBlog(id: string): Promise<IBlog | null> {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog/${id}`, {
+        const res = await fetch(`https://protfoliobackend-teal.vercel.app/api/v1/blog/${id}`, {
             next: { revalidate: 30 },
         });
 

@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align="center">🌐 Personal Portfolio Frontend (Next.js)</h1>
 
-## Getting Started
+<p align="center">
+A modern, responsive, and SEO-optimized portfolio website built with <strong>Next.js</strong>, <strong>TypeScript</strong>, and <strong>Tailwind CSS</strong>.
+It includes blog and project showcases, an About section, and admin-only dashboard features.
+</p>
 
-First, run the development server:
+<hr />
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<h2>🚀 Live Demo</h2>
+<ul>
+  <li><strong>Frontend URL:</strong> <a href="nextjsfrontend-eta.vercel.app" target="_blank">nextjsfrontend-eta.vercel.app</a></li>
+  <li><strong>Backend API:</strong> <a href="https://protfoliobackend-teal.vercel.app" target="_blank">https://protfoliobackend-teal.vercel.app</a></li>
+</ul>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<hr />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<h2>📖 Project Overview</h2>
+<p>
+The frontend of this project provides both public-facing portfolio pages and a secure admin dashboard.
+It leverages <strong>NextAuth</strong> for authentication, supports <strong>Incremental Static Regeneration (ISR)</strong> for blogs and projects, and integrates with a Node.js backend for dynamic data.
+</p>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<h3>✨ Core Features</h3>
+<ul>
+  <li>🧑‍💻 <strong>Public Pages</strong>: Home, About, Projects, Blogs, Contact</li>
+  <li>📝 <strong>Blog Management</strong>: View all blogs & detailed single blog pages</li>
+  <li>💼 <strong>Project Showcase</strong>: Dynamic project listing with images and links</li>
+  <li>🔐 <strong>Admin Dashboard</strong>: Manage blogs, projects, and personal info</li>
+  <li>🧾 <strong>Rich Text Editor</strong>: For creating and editing blog posts</li>
+  <li>📱 <strong>Responsive UI</strong>: Tailwind CSS ensures mobile-first design</li>
+</ul>
 
-## Learn More
+<hr />
 
-To learn more about Next.js, take a look at the following resources:
+<h2>🧰 Tech Stack</h2>
+<ul>
+  <li><strong>Framework:</strong> Next.js (App Router)</li>
+  <li><strong>Language:</strong> TypeScript</li>
+  <li><strong>Styling:</strong> Tailwind CSS</li>
+  <li><strong>Authentication:</strong> NextAuth (JWT strategy)</li>
+  <li><strong>Notifications:</strong> React Hot Toast</li>
+  <li><strong>Deployment:</strong> Vercel</li>
+</ul>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<hr />
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<h2>📂 Project Structure</h2>
 
-## Deploy on Vercel
+<pre>
+frontend/
+├── app/
+│   ├── (public-pages)
+│   ├── (dashboard)
+│   └── layout.tsx
+├── components/
+├── helpers/
+├── public/
+├── styles/
+└── utils/
+</pre>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<hr />
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<h2>⚙️ Environment Variables</h2>
+<pre>
+NEXTAUTH_SECRET=your_secret
+NEXTAUTH_URL=https://your-portfolio.vercel.app
+NEXT_PUBLIC_BACKEND_URL=https://your-backend.vercel.app
+</pre>
+
+<hr />
+
+<h2>🧑‍💻 Setup Instructions</h2>
+
+<ol>
+  <li><b>Clone Repository:</b><br>
+    <code>git clone https://github.com/ayon121/Nextjs_Portfolio_Project_Frontend.git</code>
+  </li>
+  <li><b>Install Dependencies:</b><br>
+    <code>npm install</code>
+  </li>
+  <li><b>Run Development Server:</b><br>
+    <code>npm run dev</code>
+  </li>
+  <li>Visit <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> in your browser.</li>
+</ol>
+
+<hr />
+
+
+<hr />
+
+<h2>👨‍💻 Author</h2>
+<p><b>Ayon Saha</b><br>
+Full Stack MERN Developer | Building SaaS, eCommerce, and portfolio websites<br>
+
