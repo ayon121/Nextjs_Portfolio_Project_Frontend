@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import dynamic from "next/dynamic";
 
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
@@ -243,6 +243,7 @@ export default function AdminAllProjects() {
                     </div>
                 </div>
             )}
+            <ToastContainer></ToastContainer>
         </main>
     );
 }

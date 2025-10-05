@@ -87,7 +87,7 @@ export default function AddProjectForm() {
     }
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/project`, {
+      const res = await fetch(`https://backend-rho-plum-42.vercel.app/api/v1/project`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
